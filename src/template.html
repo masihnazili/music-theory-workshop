@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>کارگاه هارمونی</title>
+<meta name="description" content="یادگیری عملی هارمونی و تئوری موسیقی با پیانو و گیتار، به فارسی، به سبک دولینگو.">
+<meta name="theme-color" content="#7357F6">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;700;800&family=JetBrains+Mono:wght@600;700&display=swap">
+<style>
+:root{color-scheme:light}
+[hidden]:not([hidden=until-found i]){display:none!important}
+{{STYLE}}
+</style>
+</head>
+<body>
+<div id="app" class="wrap" dir="rtl"></div>
+<div id="run" class="run" dir="rtl" hidden></div>
+<script>
+{{APP}}
+</script>
+<script>
+/* offline support: only on a real http(s) origin such as GitHub Pages */
+try{if('serviceWorker' in navigator&&/^https?:$/.test(location.protocol))navigator.serviceWorker.register('sw.js').catch(function(){})}catch(e){}
+</script>
+</body>
+</html>
