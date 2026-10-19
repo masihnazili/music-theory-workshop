@@ -94,3 +94,11 @@ The project code is released under the MIT License; see `LICENSE`. The lesson co
 ---
 
 **[صفحهٔ فارسی · Persian Documentation](README.fa.md) · [Main README](README.md)**
+
+## ❤️ Support Harmony Workshop
+
+If Harmony Workshop helps you learn music, consider supporting its continued development and improvement. You can contribute using **USDT or Gram on the TON network**.
+
+**TON Wallet Address:** `UQC526RDQM9f71hT7z2YJ8HD3Y7wUG-P8o3XwokWirLCYQPV`
+
+> Please make sure you select the TON network and verify that the asset is supported by the receiving wallet before sending.
