@@ -1,13 +1,14 @@
 {
   "name": "harmony-workshop",
   "version": "1.0.0",
-  "description": "Persian, Duolingo-style harmony and music theory trainer for piano and guitar players",
+  "description": "Bilingual (Persian/English), Duolingo-style harmony and music theory trainer for piano and guitar players",
   "private": true,
   "scripts": {
     "build": "python3 build.py",
-    "test": "python3 build.py && node tests/smoke.js"
+    "test": "python3 build.py && node tests/smoke.js && node tests/i18n-sweep.js en && node tests/i18n-sweep.js fa && node tests/i18n-studio.js en"
   },
   "devDependencies": {
-    "playwright": "^1.48.0"
+    "playwright": "^1.48.0",
+    "acorn": "^8.12.0"
   }
 }

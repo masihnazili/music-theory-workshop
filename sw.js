@@ -1,5 +1,5 @@
 /* Offline cache: app shell is pre-cached; fonts, Pitchy and piano samples are cached as they are used. */
-const VERSION = 'hw-v16';
+const VERSION = 'hw-v17';
 const SHELL = ['./', 'index.html', 'manifest.webmanifest', 'icons/icon.svg', 'icons/icon-192.png', 'icons/icon-512.png'];
 const RUNTIME_HOSTS = ['cdn.jsdelivr.net', 'fonts.googleapis.com', 'fonts.gstatic.com', 'raw.githubusercontent.com'];
 

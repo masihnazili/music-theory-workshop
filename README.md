@@ -1,9 +1,16 @@
 # کارگاه هارمونی · Harmony Workshop
 
 یادگیری **عملی** هارمونی و تئوری موسیقی به فارسی، به سبک دولینگو، با **پیانو** یا **گیتار**.
-A Persian (RTL), Duolingo-style web app that teaches harmony and music theory by having you play, not just read.
+A bilingual (Persian RTL / English LTR), Duolingo-style web app that teaches harmony and music theory by having you play, not just read.
 
 > یک فایل HTML مستقل. بدون سرور، بدون ساخت پیچیده، بدون حساب کاربری. پیشرفت فقط در مرورگر خودت ذخیره می‌شود.
+
+## زبان‌ها · Languages
+
+اپ **دوزبانه** است (فارسی و English). دکمهٔ کوچک بالای صفحه زبان را عوض می‌کند؛ انتخاب در `localStorage` (`hw-lang`) ذخیره می‌شود و بار اول از زبان مرورگر تعیین می‌شود.
+The app is fully bilingual. Use the small toggle in the header; the choice is stored in `localStorage` (`hw-lang`), defaulting to the browser language.
+
+**برای مشارکت / How translations work:** منبع متن‌ها فارسی است (`src/app.js`, `src/practice.js`). `python3 build.py` با `i18n/tool.js` هر رشتهٔ فارسی را با کلیدی پایدار به جدول `[فارسی, English]` می‌برد؛ ترجمهٔ انگلیسی در `i18n/en/*.json` است (کلید = هش متن فارسی). اگر متن فارسی را عوض کنی، هشش عوض می‌شود و بیلد هشدار `untranslated` می‌دهد؛ ترجمهٔ جدید را به `i18n/en/extra.json` اضافه کن. Source strings are Persian; English lives in `i18n/en/*.json`, keyed by a hash of the Persian text. Build needs Node (`npm i` for acorn).
 
 ## امکانات
 
