@@ -820,3 +820,8 @@ body{
 .alt{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
 .engine{margin:8px 0 0;font-size:.78rem;color:var(--muted)}
 .stats{display:flex;gap:8px}
+
+/* English (LTR) */
+:root[lang=en]{--font:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif}
+:root[lang=en] body{font-family:var(--font)}
+.lang-toggle{border:0;background:var(--card,#fff);border-radius:999px;padding:6px 10px;font:700 12px var(--font);cursor:pointer;color:inherit;box-shadow:0 1px 4px rgba(0,0,0,.12)}

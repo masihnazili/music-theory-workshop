@@ -1,6 +1,12 @@
-document.documentElement.lang='fa';document.documentElement.dir='rtl';
+var LANG=(function(){try{var l=localStorage.getItem('hw-lang');if(l==='fa'||l==='en')return l}catch(e){}return /^fa/i.test(navigator.language||'')?'fa':'en'})();
+var RTL=LANG==='fa';
+document.documentElement.lang=LANG;document.documentElement.dir=RTL?'rtl':'ltr';
+var _L=function(k){return _S[k][RTL?0:1]};
+document.title=RTL?'کارگاه هارمونی':'Harmony Workshop';
+try{document.querySelector('meta[name=description]').content=RTL?'یادگیری عملی هارمونی و تئوری موسیقی با پیانو و گیتار، به فارسی، به سبک دولینگو.':'Learn harmony and music theory hands-on with piano and guitar, Duolingo-style.'}catch(e){}
+function setLang(l){try{localStorage.setItem('hw-lang',l)}catch(e){}location.reload()}
 var $=function(s){return document.querySelector(s)};
-var fa=function(n){return Number(n).toLocaleString('fa-IR')};
+var fa=function(n){return Number(n).toLocaleString(RTL?'fa-IR':'en-US')};
 var fmt=function(s){return String(s).replace(/\[\[(.+?)\]\]/g,'<span class="ch">$1</span>').replace(/\*\*(.+?)\*\*/g,'<b>$1</b>')};
 var PCS=['C','C#','D','D#','E','F','F#','G','G#','A','A#','B'];
 var COLORS={base:'var(--base)',major:'var(--major)',minor:'var(--minor)',power:'var(--power)',seventh:'var(--seventh)'};
@@ -130,7 +136,7 @@ function compilePlay(p){
 }
 
 /* ---------- Authoring helpers: short constructors for lesson content ---------- */
-var SOL={C:'دو',D:'ر',E:'می',F:'فا',G:'سل',A:'لا',B:'سی'};
+var SOL=RTL?{C:'دو',D:'ر',E:'می',F:'فا',G:'سل',A:'لا',B:'سی'}:{C:'Do',D:'Re',E:'Mi',F:'Fa',G:'Sol',A:'La',B:'Ti'};
 function mix(o,x){x=x||{};for(var k in x)o[k]=x[k];return o}
 /* info card: I(title, [paragraphs], {pill,list,viz,demos,tip}) */
 function I(title,body,x){return mix({t:'info',title:title,body:[].concat(body)},x)}
@@ -4635,7 +4641,7 @@ var PT_UNITS=[{"id":"u1","title":"مسیر کامل کتاب — سطح یک","l
 var PT=(function(){
   var M=PTM,P=M.music,PS=M.score_view;
   var S=null;
-  function nf(n){return Number(n).toLocaleString('fa-IR',{useGrouping:false})}
+  function nf(n){return Number(n).toLocaleString(RTL?'fa-IR':'en-US',{useGrouping:false})}
   function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
   var MODE_HELP={
     listen:'برنامه نت‌ها را می‌نوازد. روی هر نتِ حامل هم می‌توانی بزنی تا صدایش را بشنوی.',
@@ -4707,7 +4713,7 @@ var PT=(function(){
       var un=lessonUnlocked(en),done=S.progress.completedLessons.has(en.lessonKey),cur=un&&!done;
       var steps=lessonSteps(en.lessonKey),dn=steps.filter(function(o){return S.progress.completedSteps.has(skey(o.x))}).length;
       var off=['0px','34px','0px','-34px'][i%4];
-      h+='<button class="node'+(un?'':' locked')+(cur?' cur':'')+(i%2?' off':'')+'" style="--c:'+COLORS[NODE_COLORS[i%5]]+';transform:translateX('+off+')" '+(un?'data-act="ptopen" data-id="'+en.lessonKey+'"':'disabled')+' aria-label="'+esc(en.lesson.titleFa||en.lesson.title)+'">'+(done?'✓':fa(i+1))+'<span class="lbl">'+esc(en.lesson.titleFa||en.lesson.title)+(un&&!done&&dn?'<small>'+fa(dn)+' از '+fa(steps.length)+' مرحله</small>':'')+'</span></button>';
+      h+='<button class="node'+(un?'':' locked')+(cur?' cur':'')+(i%2?' off':'')+'" style="--c:'+COLORS[NODE_COLORS[i%5]]+';transform:translateX('+off+')" '+(un?'data-act="ptopen" data-id="'+en.lessonKey+'"':'disabled')+' aria-label="'+esc((RTL?en.lesson.titleFa||en.lesson.title:en.lesson.title))+'">'+(done?'✓':fa(i+1))+'<span class="lbl">'+esc((RTL?en.lesson.titleFa||en.lesson.title:en.lesson.title))+(un&&!done&&dn?'<small>'+fa(dn)+' از '+fa(steps.length)+' مرحله</small>':'')+'</span></button>';
       if(i===S.lessons.length-1||S.lessons[i+1].unit!==en.unit)h+='</div></section>';
     });
     return h;
@@ -4724,7 +4730,7 @@ var PT=(function(){
     var h='<div class="card ptdash"><h3>پیشرفت کارگاه پیانو</h3><div class="ptstats"><div><b>'+fa(cd)+' از '+fa(tot)+'</b><span>درس گذرانده</span></div><div><b>'+(at.length?'٪'+fa(Math.round(avg*100)):'—')+'</b><span>میانگین دقت</span></div><div><b>'+fa(at.length)+'</b><span>تلاش ثبت‌شده</span></div></div>';
     var by={};at.forEach(function(a){(by[a.lessonKey]=by[a.lessonKey]||[]).push(a)});
     var weak=Object.keys(by).map(function(k){var arr=by[k];return {k:k,m:arr.reduce(function(n,a){return n+a.accuracy},0)/arr.length,n:arr.length}}).filter(function(x){return x.m<.8&&S.lessons.filter(function(l){return l.lessonKey===x.k}).length}).sort(function(a,b){return a.m-b.m}).slice(0,3);
-    if(weak.length){h+='<p><b>پیشنهاد مرور:</b></p>';weak.forEach(function(w){var l=S.lessons.filter(function(l){return l.lessonKey===w.k})[0];h+='<div class="ptrev"><span>'+esc(l.lesson.titleFa||l.lesson.title)+' · دقت ٪'+fa(Math.round(w.m*100))+'</span><button class="sm" data-act="ptopen" data-id="'+w.k+'">مرور</button></div>'});}
+    if(weak.length){h+='<p><b>پیشنهاد مرور:</b></p>';weak.forEach(function(w){var l=S.lessons.filter(function(l){return l.lessonKey===w.k})[0];h+='<div class="ptrev"><span>'+esc((RTL?l.lesson.titleFa||l.lesson.title:l.lesson.title))+' · دقت ٪'+fa(Math.round(w.m*100))+'</span><button class="sm" data-act="ptopen" data-id="'+w.k+'">مرور</button></div>'});}
     else h+='<p class="ptmsg">بعد از چند تلاش، درس‌هایی که به مرور نیاز دارند اینجا نشان داده می‌شوند.</p>';
     return h+'<button class="sm" data-act="ptreset">پاک‌کردن پیشرفت کارگاه پیانو</button></div>';
   }
@@ -4870,7 +4876,7 @@ var PT=(function(){
   }
   function showResult(sum,passed){
     var it=cur(),award=0;
-    S.progress.attempts.push({id:Date.now()+'-'+Math.random().toString(36).slice(2,8),at:new Date().toISOString(),lessonKey:it.lessonKey,lessonTitle:it.lesson.titleFa||it.lesson.title,stepId:it.step.id,stepTitle:it.step.title,isAssessment:!!it.isAssessment,mode:sum.mode||S.mode,accuracy:Number(sum.accuracy)||0,passed:!!passed,total:Number(sum.total)||0,errors:Number(sum.errors)||Number(sum.extras)||0,missed:Number(sum.missed)||0,meanAbsOffsetMs:Number(sum.meanAbsOffsetMs!=null?sum.meanAbsOffsetMs:sum.meanOffsetMs)||0,tendency:sum.tendency||'unknown'});
+    S.progress.attempts.push({id:Date.now()+'-'+Math.random().toString(36).slice(2,8),at:new Date().toISOString(),lessonKey:it.lessonKey,lessonTitle:(RTL?it.lesson.titleFa||it.lesson.title:it.lesson.title),stepId:it.step.id,stepTitle:it.step.title,isAssessment:!!it.isAssessment,mode:sum.mode||S.mode,accuracy:Number(sum.accuracy)||0,passed:!!passed,total:Number(sum.total)||0,errors:Number(sum.errors)||Number(sum.extras)||0,missed:Number(sum.missed)||0,meanAbsOffsetMs:Number(sum.meanAbsOffsetMs!=null?sum.meanAbsOffsetMs:sum.meanOffsetMs)||0,tendency:sum.tendency||'unknown'});
     S.progress.attempts=S.progress.attempts.slice(-500);
     if(passed){
       if(!S.progress.completedSteps.has(skey(it))){award+=it.isAssessment?15:5}
@@ -5628,7 +5634,7 @@ function home(){
   view='';
   if(tab==='prac'||(tab==='piano'&&S.inst!=='piano'))tab='path';
   stopLab();
-  var h='<header class="top"><div class="brand"><i><s style="background:var(--major)"></s><s style="background:var(--minor)"></s><s style="background:var(--power)"></s><s style="background:var(--seventh)"></s></i>کارگاه هارمونی</div><button class="theme-toggle" data-act="theme" title="تغییر حالت روز و شب" aria-label="تغییر حالت روز و شب">'+(document.documentElement.getAttribute('data-theme')==='dark'?'☀️ <span>حالت روز</span>':'🌙 <span>حالت شب</span>')+'</button><div class="stats"><button class="stat" data-act="inst" title="تغییر ساز">'+(S.inst==='guitar'?'🎸 گیتار':S.inst==='piano'?'🎹 پیانو':'📖 بدون ساز')+'</button></div></header>'+tabsHtml();
+  var h='<header class="top"><div class="brand"><i><s style="background:var(--major)"></s><s style="background:var(--minor)"></s><s style="background:var(--power)"></s><s style="background:var(--seventh)"></s></i>کارگاه هارمونی</div><button class="lang-toggle" data-act="lang" title="Language / زبان" aria-label="Language">'+(RTL?'EN':String.fromCharCode(1601,1575))+'</button><button class="theme-toggle" data-act="theme" title="تغییر حالت روز و شب" aria-label="تغییر حالت روز و شب">'+(document.documentElement.getAttribute('data-theme')==='dark'?'☀️ <span>حالت روز</span>':'🌙 <span>حالت شب</span>')+'</button><div class="stats"><button class="stat" data-act="inst" title="تغییر ساز">'+(S.inst==='guitar'?'🎸 گیتار':S.inst==='piano'?'🎹 پیانو':'📖 بدون ساز')+'</button></div></header>'+tabsHtml();
   if(tab==='piano'){$('#app').innerHTML=h+PT.home();return}
   if(tab==='prac'){$('#app').innerHTML=h+pracList();return}
   var nm=Object.keys(S.miss).filter(function(k){return EXK[k]}).length,nd=Object.keys(S.done).length;
@@ -5852,6 +5858,7 @@ function startLab(){
 document.addEventListener('click',function(ev){
   var b=ev.target.closest('[data-act]');if(!b)return;
   var act=b.dataset.act;
+  if(act==='lang'){setLang(RTL?'en':'fa');return}
   if(act==='theme'){var nextTheme=document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark';document.documentElement.setAttribute('data-theme',nextTheme);try{localStorage.setItem('hw-theme',nextTheme)}catch(e){};var tb=document.querySelector('.theme-toggle');if(tb)tb.innerHTML=nextTheme==='dark'?'☀️ <span>حالت روز</span>':'🌙 <span>حالت شب</span>';return}
   else if(act==='open'){ctx();startLesson(b.dataset.id)}
   else if(act==='close')closeRun();
