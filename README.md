@@ -21,6 +21,6 @@ Harmony Workshop is an interactive, Duolingo-style web app for learning harmony 
 
 If you find this project useful, you can support its development by sending **USDT or Gram on the TON network**.
 
-**کیف پول TON · TON Wallet:** `UQC526RDQM9f71hT7z2YJ8HD3Y7wUG-P8o3XwokWirLCYQPV`
+** TON · TON Wallet:** `UQC526RDQM9f71hT7z2YJ8HD3Y7wUG-P8o3XwokWirLCYQPV`
 
 > لطفاً هنگام ارسال، از شبکهٔ TON استفاده کنید.
